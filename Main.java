@@ -63,9 +63,11 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        // Setting boolean for the do while loop
         boolean isInvalid;
 
         do {
+            // Beginning the loop.  Setting the loop as valid, so it continues.
             isInvalid = false;
 
             try {
@@ -118,11 +120,12 @@ public class Main {
                 System.out.println("Binary Search Time: " + recursiveTime + " nanoseconds");
         
             } catch (Exception e) {
+                // Here we trip the boolean over to true, because it received invalid input.
                 isInvalid = true;
                 System.out.println("Invalid.  Starting Over.");
                 scanner.next();
             }
-
+            // The while loop is now true, so it leaves the loop to start over.
         } while (isInvalid);
 
     }
