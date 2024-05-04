@@ -63,52 +63,67 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter number of elements in array:");
-        int n = scanner.nextInt();
-        if (n <= 0) {
-            System.out.println("Array size should be greater than 0.");
-            scanner.close();
-            return;
-        }
-        int[] array = new int[n];
+        boolean isInvalid;
 
-        System.out.println("Enter elements:");
-        for (int i = 0; i < n; i++) {
-            array[i] = scanner.nextInt();
-        }
+        do {
+            isInvalid = false;
 
-        System.out.println("Enter target number to search:");
-        int target = scanner.nextInt();
+            try {
+                System.out.println("Enter number of elements in array:");
+                int n = scanner.nextInt();       
 
-        // Linear Search
-        int linearResult = linearSearch(array, target);
-        System.out.println((linearResult == -1) ? "Target not found by linear search."
-                : "Target found by linear search at index: " + linearResult);
+                if (n <= 0) {
+                    System.out.println("Array size should be greater than 0.");
+                    scanner.close();
+                    return;
+                }
+                int[] array = new int[n];
+        
+                System.out.println("Enter elements, one per line:");
+                for (int i = 0; i < n; i++) {
+                    array[i] = scanner.nextInt();
+                }
+        
+                System.out.println("Enter target number to search:");
+                int target = scanner.nextInt();
+        
+                // Linear Search
+                int linearResult = linearSearch(array, target);
+                System.out.println((linearResult == -1) ? "Target not found by linear search."
+                        : "Target found by linear search at index: " + linearResult);
+        
+                // Binary Search (Array must be sorted)
+                Arrays.sort(array);
+                int binaryResult = binarySearch(array, target);
+                System.out.println((binaryResult == -1) ? "Target not found by binary search."
+                        : "Target found by binary search at index: " + binaryResult);
+        
+                // Recursive Binary Search (Array must be sorted)
+                int recursiveResult = recursiveSearch(array, target, 0, array.length - 1);
+                System.out.println((recursiveResult == -1) ? "Target not found by recursive search."
+                        : "Target found by recursive search at index: " + recursiveResult);
+        
+                scanner.close();
+        
+                // Timer function
+                long startTime = System.nanoTime();
+                linearSearch(array, 1); // Search for first element
+                long linearTime = System.nanoTime() - startTime;
+        
+                startTime = System.nanoTime();
+                recursiveSearch(array, 15, 0, array.length - 1); // Search for last element
+                long recursiveTime = System.nanoTime() - startTime;
+        
+                System.out.println("Linear Search Time: " + linearTime + " nanoseconds");
+                System.out.println("Binary Search Time: " + recursiveTime + " nanoseconds");
+        
+            } catch (Exception e) {
+                isInvalid = true;
+                System.out.println("Invalid.  Starting Over.");
+                scanner.next();
+            }
 
-        // Binary Search (Array must be sorted)
-        Arrays.sort(array);
-        int binaryResult = binarySearch(array, target);
-        System.out.println((binaryResult == -1) ? "Target not found by binary search."
-                : "Target found by binary search at index: " + binaryResult);
-
-        // Recursive Binary Search (Array must be sorted)
-        int recursiveResult = recursiveSearch(array, target, 0, array.length - 1);
-        System.out.println((recursiveResult == -1) ? "Target not found by recursive search."
-                : "Target found by recursive search at index: " + recursiveResult);
-
-        scanner.close();
-
-        // Timer function
-        long startTime = System.nanoTime();
-        linearSearch(array, 1); // Search for first element
-        long linearTime = System.nanoTime() - startTime;
-
-        startTime = System.nanoTime();
-        recursiveSearch(array, 15, 0, array.length - 1); // Search for last element
-        long recursiveTime = System.nanoTime() - startTime;
-
-        System.out.println("Linear Search Time: " + linearTime + " nanoseconds");
-        System.out.println("Binary Search Time: " + recursiveTime + " nanoseconds");
+        } while (isInvalid);
 
     }
 }
