@@ -101,14 +101,14 @@ public class Main {
         // Timer function
         long startTime = System.nanoTime();
         linearSearch(array, 1); // Search for first element
-        long linearSearchTime = System.nanoTime() - startTime;
+        long linearTime = System.nanoTime() - startTime;
 
         startTime = System.nanoTime();
         recursiveSearch(array, 15, 0, array.length - 1); // Search for last element
-        long recursiveSearchTime = System.nanoTime() - startTime;
+        long recursiveTime = System.nanoTime() - startTime;
 
-        System.out.println("Linear Search Time: " + linearSearchTime + " nanoseconds");
-        System.out.println("Binary Search Time: " + recursiveSearchTime + " nanoseconds");
+        System.out.println("Linear Search Time: " + linearTime + " nanoseconds");
+        System.out.println("Binary Search Time: " + recursiveTime + " nanoseconds");
 
     }
 }
